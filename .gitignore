@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# C++ build outputs
+build/
+bin/
+*.obj
+*.exe
+*.dll
+*.pdb
+*.lib
+
+# IDE settings
+.vscode/
+.idea/
+
+# Logs
+*.log
+logs/
+
+# HUGE files and datasets (keeps repo clean)
+data/
+datasets/
+module2_feature_extractor\data
+module3_dataset\data
