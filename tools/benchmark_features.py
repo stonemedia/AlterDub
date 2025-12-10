@@ -1,8 +1,14 @@
 import time
 from pathlib import Path
+import sys
 
 import numpy as np
 import soundfile as sf
+
+THIS_FILE = Path(__file__).resolve()
+REPO_ROOT = THIS_FILE.parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.append(str(REPO_ROOT))
 
 from module2_feature_extractor.feature_extractor import FeatureConfig, FeatureExtractor
 
@@ -11,7 +17,8 @@ def main():
     cfg.finalize()
     extractor = FeatureExtractor(cfg)
 
-    wav_path = Path("module2_feature_extractor/data/input_wavs/demo.wav")
+    wav_path = REPO_ROOT / "module3_dataset" / "data" / "cleaned" / "spk_m1" / "spk_m1_000012.wav"
+
 
     # Load once here so we don't time disk I/O
     y, sr = sf.read(wav_path.as_posix())
