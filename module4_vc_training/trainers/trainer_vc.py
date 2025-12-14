@@ -232,6 +232,11 @@ class VCTrainer:
                             self.best_val_loss = val_loss
                             self._save("best")
 
+                        # IMPORTANT: switch back to train mode after validation
+                        self.decoder.train()
+                        self.speaker_embedding.train()
+                        self.content_encoder.eval()
+
                     # Periodic checkpoint
                     if self.step % save_every == 0:
                         self._save("last")

@@ -1,6 +1,6 @@
 data:
-  train_list: D:/AlterDub/module3_dataset/metadata/train_list.txt
-  val_list:   D:/AlterDub/module3_dataset/metadata/val_list.txt
+  train_list: /workspace/AlterDub/module3_dataset/metadata/train_list.txt
+  val_list:   /workspace/AlterDub/module3_dataset/metadata/val_list.txt
   segment_frames: 192
   num_workers: 8
   pin_memory: true
@@ -38,12 +38,12 @@ loss:
   w_mel: 1.0
 
 checkpoint:
-  out_dir: "D:/AlterDub/module4_vc_training/checkpoints"
+  out_dir: "/workspace/altd_runs/checkpoints"
   keep_last_n: 5
 
 logging:
   use_tensorboard: true
-  log_dir: "D:/AlterDub/module4_vc_training/logs/tensorboard"
+  log_dir: "/workspace/altd_runs/tensorboard"
   run_name: "vc_content_encoder_gpu"
 
 device:

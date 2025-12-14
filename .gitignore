@@ -26,3 +26,7 @@ data/
 datasets/
 module2_feature_extractor\data
 module3_dataset\data
+
+# Python caches
+**/__pycache__/
+**/*.pyc

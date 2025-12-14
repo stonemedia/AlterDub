@@ -19,8 +19,8 @@ def load_config(cfg_path: str):
 
 def main():
     # ---- Edit these two lines when resuming ----
-    CKPT_PATH = r"D:/AlterDub/module4_vc_training/checkpoints/vc_content_encoder_v1_20251213_212544/last.pt"
-    CFG_PATH = r"D:/AlterDub/module4_vc_training/configs/train_vc_content.yaml"
+    CKPT_PATH = r"/workspace/altd_runs/checkpoints/vc_content_encoder_gpu_20251214_132942/last.pt"
+    CFG_PATH = r"/workspace/AlterDub/module4_vc_training/configs/train_vc_content_gpu.yaml"
     # ------------------------------------------
 
     cfg = load_config(CFG_PATH)
