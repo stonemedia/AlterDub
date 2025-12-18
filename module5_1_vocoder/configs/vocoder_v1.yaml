@@ -1,0 +1,25 @@
+filelist: /workspace/AlterDub/module3_dataset/metadata/vocoder_filelist.txt
+sample_rate: 16000
+hop_length: 80
+n_mels: 80
+
+# Training segment in mel frames (T_mel). Audio segment = T_mel * hop_length.
+segment_mel_frames: 128
+
+batch_size: 16
+num_workers: 4
+
+lr: 0.0002
+betas: [0.8, 0.99]
+weight_decay: 0.0
+
+max_steps: 200000
+log_every: 50
+save_every: 2000
+
+checkpoint_dir: /workspace/AlterDub/module5_1_vocoder/checkpoints
+run_name: vocoder_v1_hifigan
+
+# Loss weights
+lambda_fm: 10.0
+

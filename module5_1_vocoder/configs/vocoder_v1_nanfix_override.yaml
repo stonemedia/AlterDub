@@ -1,0 +1,4 @@
+
+# Stability overrides for NaN prevention
+lr: 0.0001
+save_every: 1000

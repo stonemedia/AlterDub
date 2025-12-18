@@ -1,0 +1,9 @@
+
+# STFT/Mel (LOCKED to Module-2)
+n_fft: 512
+win_length: 160
+f0min: 0.0
+f0max: 8000.0
+
+# Loss weights
+lambda_mel: 45.0

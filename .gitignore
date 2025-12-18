@@ -30,3 +30,8 @@ module3_dataset\data
 # Python caches
 **/__pycache__/
 **/*.pyc
+
+# ===== Model checkpoints (DO NOT COMMIT) =====
+*.pt
+checkpoints/
+module5_1_vocoder/checkpoints/
