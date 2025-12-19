@@ -35,3 +35,13 @@ module3_dataset\data
 *.pt
 checkpoints/
 module5_1_vocoder/checkpoints/
+
+# --- AlterDub artifacts ---
+**/checkpoints/
+**/outputs/
+**/*.pt
+**/*.pth
+**/*.ckpt
+**/*.wav
+**/*.log
+**/*.gz

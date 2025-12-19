@@ -11,7 +11,6 @@ from module5_1_vocoder.models.hifigan_generator import Generator
 from module5_1_vocoder.models.hifigan_discriminators import MultiPeriodDiscriminator, MultiScaleDiscriminator
 from module5_1_vocoder.models.losses import discriminator_loss, generator_loss, feature_loss
 from module5_1_vocoder.models.mel import MelSTFT
-from module5_1_vocoder.models.mrstft_loss import MRSTFTLoss
 
 
 def save_ckpt(path, step, G, mpd, msd, opt_g, opt_d):
@@ -80,7 +79,6 @@ def main(cfg_path: str, resume_ckpt: str = "", reset_optim: bool = False):
         fmax=float(cfg.get("f0max", 8000.0)),
     ).to(device)
 
-    mrstft = MRSTFTLoss().to(device)
 
     lr = float(cfg["lr"])
     b0, b1 = cfg["betas"]
@@ -115,7 +113,6 @@ def main(cfg_path: str, resume_ckpt: str = "", reset_optim: bool = False):
 
     lambda_fm  = float(cfg.get("lambda_fm", 10.0))
     lambda_mel = float(cfg.get("lambda_mel", 10.0))
-    lambda_stft = float(cfg.get("lambda_stft", 1.0))
 
     # Keep exactly as in your current script (even if odd); we can tune later.
     MEL_DB_MIN = -11.5
@@ -187,10 +184,8 @@ def main(cfg_path: str, resume_ckpt: str = "", reset_optim: bool = False):
             loss_mel = F.smooth_l1_loss(mel_pred_c, mel_tgt_c)
             # ------------------------------------------------------
 
-            # MR-STFT loss (reduces wobble/shiver, improves transients)
-            loss_stft = mrstft(y_hat, y)
 
-            loss_g = loss_g_adv + lambda_fm * loss_fm + lambda_mel * loss_mel + lambda_stft * loss_stft
+            loss_g = loss_g_adv + lambda_fm * loss_fm + lambda_mel * loss_mel
 
             if not torch.isfinite(loss_g):
                 print(f"[WARN] non-finite loss_g at step={step}: {loss_g}. Skipping batch.")
@@ -209,7 +204,7 @@ def main(cfg_path: str, resume_ckpt: str = "", reset_optim: bool = False):
                 print(
                     f"[STEP {step}] loss_d={loss_d.item():.4f} "
                     f"loss_g={loss_g.item():.4f} adv={loss_g_adv.item():.4f} "
-                    f"fm={loss_fm.item():.4f} mel={loss_mel.item():.4f} stft={loss_stft.item():.4f} ({dt:.1f}s)"
+                    f"fm={loss_fm.item():.4f} mel={loss_mel.item():.4f} ({dt:.1f}s)"
                 )
                 t0 = time.time()
 
