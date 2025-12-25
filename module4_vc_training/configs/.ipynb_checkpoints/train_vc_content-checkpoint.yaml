@@ -1,0 +1,66 @@
+# ===============================
+# Module 4 - VC Training Config
+# ===============================
+
+# ---- Data paths ----
+data:
+  train_list: D:/AlterDub/module3_dataset/metadata/train_list.txt   # adjust if your path is different
+  val_list:   D:/AlterDub/module3_dataset/metadata/val_list.txt
+  # segment length in frames (e.g. 128 frames ~ about 1.28 sec if hop = 10 ms)
+  segment_frames: 128
+  num_workers: 0         # PyTorch DataLoader workers
+  pin_memory: false
+
+# ---- Model params ----
+model:
+  n_mels: 80             # must match Module 2/3 mel settings
+  content_dim: 256       # output dim of content encoder (we'll adjust once we pick encoder)
+  spk_emb_dim: 128
+  f0_emb_dim: 32
+  hidden_dim: 256        # decoder hidden size
+  num_decoder_layers: 4  # we'll define exact shape in decoder_vc.py
+  dropout: 0.1
+  num_speakers: 4        # set this to actual number of speakers in your dataset
+  causal: false
+  # content encoder
+  content_encoder_type: "hubert"   # placeholder
+  content_encoder_ckpt: "../pretrained/hubert_base.pt"  # placeholder path
+
+# ---- Training hyperparameters ----
+training:
+  batch_size: 16             # we'll tune based on GPU
+  num_epochs: 100
+  learning_rate: 0.0002
+  weight_decay: 0.0
+  grad_clip: 1.0
+  optimizer: "adamw"
+  scheduler: "none"          # can change to "cosine" etc later
+  use_amp: false   # AMP is for CUDA
+
+  # steps / intervals
+  log_every_steps: 10
+  val_every_steps: 50
+  save_every_steps: 50
+  max_steps: 200          # safety cap
+
+# ---- Loss weights ----
+loss:
+  w_mel: 1.0
+  w_spk: 0.0                 # start with 0; we can add speaker loss later
+  w_f0: 0.0                  # can add later if needed
+
+# ---- Checkpointing & logging ----
+checkpoint:
+  out_dir: "D:/AlterDub/module4_vc_training/checkpoints"
+  keep_last_n: 5
+
+logging:
+  use_tensorboard: true
+  log_dir: "D:/AlterDub/module4_vc_training/logs/tensorboard"
+  run_name: "vc_content_encoder_v1"
+
+# ---- Device ----
+device:
+  use_cuda: true
+  gpu_id: 0
+  seed: 42
